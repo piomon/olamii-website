@@ -1,0 +1,31 @@
+kind = "web"
+previewPath = "/"
+title = "OLA MII - Szkolenia i Dofinansowania"
+version = "1.0.0"
+id = "artifacts/olamii-website"
+router = "path"
+
+[[integratedSkills]]
+name = "react-vite"
+version = "1.0.0"
+
+[[services]]
+name = "web"
+paths = [ "/" ]
+localPort = 23495
+
+[services.development]
+run = "pnpm --filter @workspace/olamii-website run dev"
+
+[services.production]
+build = [ "pnpm", "--filter", "@workspace/olamii-website", "run", "build" ]
+publicDir = "artifacts/olamii-website/dist/public"
+serve = "static"
+
+[[services.production.rewrites]]
+from = "/*"
+to = "/index.html"
+
+[services.env]
+PORT = "23495"
+BASE_PATH = "/"

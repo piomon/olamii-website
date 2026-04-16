@@ -1,0 +1,210 @@
+openapi: 3.1.0
+info:
+  # Do not change the title, if the title changes, the import paths will be broken
+  title: Api
+  version: 0.1.0
+  description: API specification for OLA MII - Szkolenia i Dofinansowania
+servers:
+  - url: /api
+    description: Base API path
+tags:
+  - name: health
+    description: Health operations
+  - name: applications
+    description: Form applications for funding and training
+paths:
+  /healthz:
+    get:
+      operationId: healthCheck
+      tags: [health]
+      summary: Health check
+      description: Returns server health status
+      responses:
+        "200":
+          description: Healthy
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/HealthStatus"
+
+  /applications:
+    post:
+      operationId: submitApplication
+      tags: [applications]
+      summary: Submit a funding application form
+      description: Submit personal details for training funding program
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/ApplicationBody"
+      responses:
+        "201":
+          description: Application submitted successfully
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ApplicationResponse"
+        "400":
+          description: Validation error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+    get:
+      operationId: getApplications
+      tags: [applications]
+      summary: Get all applications
+      description: Returns all submitted applications
+      responses:
+        "200":
+          description: List of applications
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/Application"
+
+components:
+  schemas:
+    HealthStatus:
+      type: object
+      properties:
+        status:
+          type: string
+      required:
+        - status
+
+    ApplicationBody:
+      type: object
+      properties:
+        firstName:
+          type: string
+          description: Imię
+        lastName:
+          type: string
+          description: Nazwisko
+        pesel:
+          type: string
+          description: PESEL (11 cyfr)
+          pattern: '^\d{11}$'
+        birthDate:
+          type: string
+          format: date
+          description: Data urodzenia
+        gender:
+          type: string
+          enum: [kobieta, mezczyzna, inne]
+          description: Płeć
+        education:
+          type: string
+          enum: [podstawowe, gimnazjalne, zasadnicze_zawodowe, srednie, wyzsze_licencjat, wyzsze_magister, doktorat]
+          description: Wykształcenie
+        email:
+          type: string
+          format: email
+          description: Adres e-mail
+        phone:
+          type: string
+          description: Numer telefonu
+        street:
+          type: string
+          description: Ulica i numer
+        city:
+          type: string
+          description: Miasto
+        postalCode:
+          type: string
+          description: Kod pocztowy
+        voivodeship:
+          type: string
+          description: Województwo
+        employmentStatus:
+          type: string
+          enum: [pracujacy, bezrobotny, nieaktywny, samozatrudniony, uczen_student]
+          description: Status zatrudnienia
+        employer:
+          type: string
+          description: Nazwa pracodawcy (jeśli pracujący)
+        programType:
+          type: string
+          enum: [nabycie_kwalifikacji, rozwijanie_kompetencji, bilans_kompetencji, doradztwo_zawodowe, inne]
+          description: Rodzaj wsparcia
+        courseDescription:
+          type: string
+          description: Opis planowanego kursu/szkolenia
+        fundingAmount:
+          type: number
+          description: Wnioskowana kwota dofinansowania
+        nip:
+          type: string
+          description: NIP pracodawcy (opcjonalnie)
+        disabilityStatus:
+          type: boolean
+          description: Osoba z niepełnosprawnością
+        consent:
+          type: boolean
+          description: Zgoda na przetwarzanie danych osobowych
+        consentMarketing:
+          type: boolean
+          description: Zgoda marketingowa (opcjonalna)
+      required:
+        - firstName
+        - lastName
+        - pesel
+        - birthDate
+        - gender
+        - education
+        - email
+        - phone
+        - street
+        - city
+        - postalCode
+        - voivodeship
+        - employmentStatus
+        - programType
+        - consent
+
+    Application:
+      allOf:
+        - $ref: "#/components/schemas/ApplicationBody"
+        - type: object
+          properties:
+            id:
+              type: integer
+            submittedAt:
+              type: string
+              format: date-time
+            status:
+              type: string
+              enum: [pending, reviewing, approved, rejected]
+          required:
+            - id
+            - submittedAt
+            - status
+
+    ApplicationResponse:
+      type: object
+      properties:
+        id:
+          type: integer
+        message:
+          type: string
+        status:
+          type: string
+      required:
+        - id
+        - message
+        - status
+
+    ErrorResponse:
+      type: object
+      properties:
+        error:
+          type: string
+        details:
+          type: object
+      required:
+        - error
