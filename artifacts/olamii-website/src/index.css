@@ -216,3 +216,73 @@
     @apply font-sans antialiased bg-background text-foreground;
   }
 }
+
+/* ─── GLOWING CONVEX BUTTONS ─────────────────────────────────── */
+.btn-glow {
+  position: relative;
+  background: linear-gradient(180deg, #e9b53a 0%, #d4a017 50%, #b8860d 100%) !important;
+  color: #fff !important;
+  border: 1px solid #b8860d !important;
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.55),
+    inset 0 -2px 4px rgba(120, 70, 0, 0.35),
+    0 6px 16px rgba(212, 160, 23, 0.35),
+    0 0 24px rgba(232, 181, 58, 0.25) !important;
+  transition: transform 0.25s ease, box-shadow 0.25s ease, filter 0.25s ease !important;
+  text-shadow: 0 1px 1px rgba(120, 70, 0, 0.35);
+}
+.btn-glow::before {
+  content: "";
+  position: absolute; inset: 0;
+  border-radius: inherit;
+  background: linear-gradient(180deg, rgba(255,255,255,0.35) 0%, rgba(255,255,255,0) 50%);
+  pointer-events: none;
+}
+.btn-glow:hover {
+  transform: translateY(-2px);
+  filter: brightness(1.06);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.6),
+    inset 0 -2px 4px rgba(120, 70, 0, 0.35),
+    0 12px 28px rgba(212, 160, 23, 0.5),
+    0 0 38px rgba(232, 181, 58, 0.55) !important;
+}
+.btn-glow:active {
+  transform: translateY(0);
+  box-shadow:
+    inset 0 2px 4px rgba(120, 70, 0, 0.35),
+    0 2px 6px rgba(212, 160, 23, 0.3) !important;
+}
+
+.btn-glow-light {
+  position: relative;
+  background: linear-gradient(180deg, #fff 0%, #fbf6e8 100%) !important;
+  color: #8a6a10 !important;
+  border: 1px solid rgba(184, 134, 13, 0.35) !important;
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.9),
+    0 4px 12px rgba(184, 134, 13, 0.12),
+    0 0 18px rgba(232, 181, 58, 0.18) !important;
+  transition: all 0.25s ease !important;
+}
+.btn-glow-light:hover {
+  transform: translateY(-2px);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.9),
+    0 8px 20px rgba(184, 134, 13, 0.2),
+    0 0 28px rgba(232, 181, 58, 0.35) !important;
+}
+
+/* ─── ELEGANT FONTS for cosmetic logo ─────────────────────────── */
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;1,300;1,400;1,500&family=Playfair+Display:ital,wght@0,400;0,500;0,700;1,400;1,500&display=swap');
+.font-elegant { font-family: 'Cormorant Garamond', 'Playfair Display', Georgia, serif; }
+.font-display { font-family: 'Playfair Display', Georgia, serif; }
+
+/* Soft floating accent for cards */
+.shimmer-gold {
+  background: linear-gradient(110deg, #d4a017 0%, #f0c040 25%, #d4a017 50%, #f0c040 75%, #d4a017 100%);
+  background-size: 200% auto;
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
