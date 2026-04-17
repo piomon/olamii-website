@@ -262,7 +262,7 @@ export default function Home() {
           <div className="relative">
             <div className="relative rounded-2xl overflow-hidden shadow-2xl border border-border/40 lg:h-[580px]">
               <img
-                src="/hero.png"
+                src="/hero.jpg"
                 alt="Sandra Baleja — doradca zawodowy OLA MII"
                 className="w-full h-full object-cover object-center"
               />
@@ -304,7 +304,7 @@ export default function Home() {
           <div className="grid lg:grid-cols-12 gap-16 items-center">
             <div className="lg:col-span-5 relative">
               <div className="aspect-[3/4] rounded-2xl overflow-hidden shadow-xl border border-border/40">
-                <img src="/career.png" alt="Doradztwo zawodowe OLA MII" className="w-full h-full object-cover" />
+                <img src="/career.jpg" alt="Doradztwo zawodowe OLA MII" className="w-full h-full object-cover" />
                 <div className="absolute inset-0 bg-gradient-to-t from-black/30 to-transparent" />
               </div>
               {/* Credentials badge */}
@@ -481,7 +481,7 @@ export default function Home() {
 
             <div className="space-y-5">
               <div className="aspect-[4/3] rounded-2xl overflow-hidden shadow-xl border border-border/40">
-                <img src="/funding.png" alt="Dokumenty dofinansowania" className="w-full h-full object-cover" />
+                <img src="/funding.jpg" alt="Dokumenty dofinansowania" className="w-full h-full object-cover" />
               </div>
               <div className="bg-background border border-border/60 rounded-xl p-5">
                 <h4 className="font-bold text-foreground mb-3 flex items-center gap-2">
@@ -503,7 +503,7 @@ export default function Home() {
       {/* ══ BANNER ═════════════════════════════════════════════════════ */}
       <section className="relative h-[38vh] min-h-[280px] flex items-center justify-center overflow-hidden">
         <div className="absolute inset-0">
-          <img src="/training.png" alt="Szkolenie zawodowe" className="w-full h-full object-cover" />
+          <img src="/training.jpg" alt="Szkolenie zawodowe" className="w-full h-full object-cover" />
           <div className="absolute inset-0 bg-foreground/70" />
         </div>
         <div className="relative z-10 text-center px-4 space-y-4">
